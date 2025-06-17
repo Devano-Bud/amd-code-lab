@@ -1,0 +1,28 @@
+# LoRA config for CodeGen fine-tuning
+# tuned for 16GB VRAM (Radeon VII)
+
+model_name: "Salesforce/codegen-350M-multi"
+dataset: "codeparrot/github-code"
+text_column: "content"
+max_length: 512
+output_dir: "./checkpoints/codegen-lora"
+fp16: true
+
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.1
+  target_modules:
+    - "q_proj"
+    - "v_proj"
+    - "k_proj"
+    - "out_proj"
+
+training:
+  epochs: 3
+  batch_size: 4
+  gradient_accumulation: 4
+  lr: 2e-4
+  warmup_steps: 100
+  logging_steps: 25
+  save_steps: 500
