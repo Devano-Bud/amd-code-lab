@@ -50,6 +50,27 @@ RX 7900 XTX (gfx1100) — ROCm 6.0+ works well
 for anything bigger than 350M params. Check configs for the batch sizes that
 didn't OOM for me.
 
+## Why AMD / ROCm
+
+Code LLMs are increasingly important for developer productivity — autocompletion, code review, bug detection, and documentation generation. Running these models on AMD GPUs via ROCm is particularly compelling because:
+
+- AMD GPUs offer competitive memory bandwidth (Radeon VII's HBM2 is excellent for transformer workloads)
+- LoRA fine-tuning of code models is a practical, cost-sensitive use case that benefits from hardware diversity
+- The 16GB VRAM on Radeon VII and 24GB on RX 7900 XTX are well-suited for small-to-medium code models
+- ROCm 6.x has matured significantly, making code model training more reliable than a year ago
+- Testing on AMD hardware exposes hidden CUDA assumptions in popular ML libraries
+
+## AMD GPU Credit Use Plan
+
+If granted AMD GPU access, I plan to:
+
+1. Validate LoRA fine-tuning of CodeGen and StarCoder models on ROCm-compatible GPUs
+2. Benchmark inference throughput (tokens/sec) on AMD vs CPU for code completion
+3. Test fp16 and bf16 training — bf16 on gfx1100 hardware specifically
+4. Measure VRAM usage during training to find optimal batch sizes for different GPU memory tiers
+5. Document ROCm compatibility issues with PEFT, Transformers, and bitsandbytes
+6. Publish benchmark data and ROCm setup guides back to this repository
+
 ## License
 
 MIT, do whatever you want with it.
