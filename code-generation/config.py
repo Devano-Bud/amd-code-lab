@@ -1,2 +1,1 @@
-# Config for code-generation
-# New: Add support for codegen batch processing
+# Config - Add config option for codegen pipeline
